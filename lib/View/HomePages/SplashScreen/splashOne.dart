@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:sizer/sizer.dart';
 
 class Page1 extends StatelessWidget {
   const Page1({Key? key}) : super(key: key);
+ 
+
+ 
 
   @override
   Widget build(BuildContext context) {

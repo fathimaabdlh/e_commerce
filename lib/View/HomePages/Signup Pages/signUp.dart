@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
@@ -10,9 +9,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+  const SignUpPage({Key? key}) : super(key: key);
 
-  // static final String id = 'signup_screen';
   @override
   _SignUpPageState createState() => _SignUpPageState();
 }
@@ -27,76 +25,66 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController phonenoController = TextEditingController();
 
- Future<void> signup(
-  BuildContext context,
-  String email,
-  String password,
-  String phoneno,
-  String name,
-) async {
-  try {
-    var response = await http.post(
-      Uri.parse("http://${ip}:3000/flutter/fuser_registration"),
-      headers: {"Content-Type": "application/x-www-form-urlencoded"},
-      body: {
-        'name': name,
-        'email': email,
-        'password': password, 
-        'phoneno': phoneno,
-      },
-    );
-    print(response.body);
-    if (response.statusCode == 200) {
-      var result = jsonDecode(response.body);
-      String? userid = result['userid'];
-      log('njjj${userid}');
-      if (userid != null) {
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('userid', userid);
-        log('${prefs}');
+  Future<void> signup(
+    BuildContext context,
+    String email,
+    String password,
+    String phoneno,
+    String name,
+  ) async {
+    try {
+      var response = await http.post(
+        Uri.parse("http://${ip}:3000/flutter/fuser_registration"),
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+        body: {
+          'name': name,
+          'email': email,
+          'password': password,
+          'phoneno': phoneno,
+        },
+      );
+      print(response.body);
+      if (response.statusCode == 200) {
+        var result = jsonDecode(response.body);
+        String? userid = result['userid'];
+        log('njjj${userid}');
+        if (userid != null) {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setString('userid', userid);
+          log('${prefs}');
 
-//
-// Obtain the user ID and OTP dynamically (replace these lines with your actual logic)
-// int otp = 123456; // Example OTP value
-
-        // Navigate to homepage if userid exists
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => Otp(otpg: userid,)
-        ),
-        );
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Otp(otpg: userid)),
+          );
+        } else {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('Try Again'),
+              );
+            },
+          );
+          print('userid not received.');
+        }
       } else {
-        // Display error message if userid is not received
         showDialog(
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text('Try Again'),
-              // Add any other necessary content to your dialog
+              title: Text('Error'),
+              content:
+                  Text('Failed with status code: ${response.statusCode}'),
             );
           },
         );
-        print('userid not received.');
+        print('Request failed with status: ${response.body}.');
       }
-    } else {
-      // Display error message for non-200 status code
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Error'),
-            content: Text('Failed with status code: ${response.statusCode}'),
-            // Add any other necessary content to your dialog
-          );
-        },
-      );
-      print('Request failed with status: ${response.body}.');
+    } catch (e) {
+      print('Error: $e');
     }
-  } catch (e) {
-    print('Error: $e');
   }
-}
-
 
   @override
   void dispose() {
@@ -113,7 +101,6 @@ class _SignUpPageState extends State<SignUpPage> {
           Form(
             key: _formKey,
             child: Column(
-              // mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
                   height: 250,
@@ -131,6 +118,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
                       controller: nameController,
+                      textAlign: TextAlign.start,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: "Enter your name",
@@ -138,7 +126,6 @@ class _SignUpPageState extends State<SignUpPage> {
                       validator: (input) => input!.trim().isEmpty
                           ? 'Please enter a valid name'
                           : null,
-                      // onSaved: (input) => _name = input!,
                     ),
                   ),
                 ),
@@ -156,15 +143,16 @@ class _SignUpPageState extends State<SignUpPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
                       controller: emailController,
+                      textAlign: TextAlign.start,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: "Enter your Email",
                       ),
-                      validator: (input) => !input!.contains('@')
-                          ? 'Please enter a valid email'
-                          : null,
-                      // onSaved: (input) => _email = input!,
+                      validator: (input) =>
+                          !input!.contains('@gmail.com')
+                              ? 'Please enter a valid email'
+                              : null,
                     ),
                   ),
                 ),
@@ -182,6 +170,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
                       controller: phonenoController,
+                      textAlign: TextAlign.start,
                       keyboardType: TextInputType.phone,
                       decoration: InputDecoration(
                         border: InputBorder.none,
@@ -207,15 +196,15 @@ class _SignUpPageState extends State<SignUpPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
                       controller: passwordController,
-
+                      textAlign: TextAlign.start,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: "Enter your Password",
                       ),
+                       
                       validator: (input) => input!.length < 6
                           ? 'Must be at least 6 characters'
                           : null,
-                      // onSaved: (input) => _password = input!,
                       obscureText: false,
                     ),
                   ),
@@ -224,27 +213,28 @@ class _SignUpPageState extends State<SignUpPage> {
                   height: 20,
                 ),
                 GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (contex) => Otp()));
-                    },
-                    child: Text(
-                      "forgot password?",
-                      style: TextStyle(color: Colors.blue, fontSize: 15),
-                    )),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (contex) => Otp()));
+                  },
+                  child: Text(
+                    "forgot password?",
+                    style: TextStyle(color: Colors.blue, fontSize: 15),
+                  ),
+                ),
                 SizedBox(height: 20.0),
                 GestureDetector(
-  onTap: () {
-    signup(
-      context,
-      emailController.text.toString(),
-      passwordController.text.toString(),
-      phonenoController.text.toString(),
-      nameController.text.toString(),
-    );
-  },
+                  onTap: () {
+                    if (_formKey.currentState!.validate()) {
+                      signup(
+                        context,
+                        emailController.text.toString(),
+                        passwordController.text.toString(),
+                        phonenoController.text.toString(),
+                        nameController.text.toString(),
+                      );
+                    }
+                  },
                   child: Container(
                     height: 50,
                     width: 360,

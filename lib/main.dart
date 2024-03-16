@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:main_project_/View/HomePages/LoginPages/LogIn.dart';
 
 
 import 'package:main_project_/View/HomePages/SplashScreen/splashScreen.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
            ),
           home: 
             //  Home(),
-          SplashScreen(),
+          LoginPage(),
          
           
  

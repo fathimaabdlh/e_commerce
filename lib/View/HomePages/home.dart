@@ -3,19 +3,31 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:main_project_/CommonWidget/foodContainer.dart';
+import 'package:main_project_/View/HomePages/Catagories/catagoryPage.dart';
 import 'package:main_project_/View/HomePages/Pageview/smoothIndicatr.dart';
 import 'package:main_project_/View/HomePages/ViewPages/ViewPage.dart';
+import 'package:main_project_/View/HomePages/cart/cart.dart';
+import 'package:main_project_/View/HomePages/profile/profile.dart';
 import 'package:sizer/sizer.dart';
 // import 'package:velocity_x/velocity_x.dart';
 // import 'package:main_project_/CommonWidget/catContainer.dart';
 
 class Home extends StatelessWidget {
   Home({super.key});
+
+  List<Function> screenBuilders = [
+    () => categoryPage(),
+    () => cartPage(),
+    () => profilePage(),
+    () => Home()
+  ];
+
   final TextEditingController _searchController =
       TextEditingController(text: 'What are you looking for?');
 
   @override
   Widget build(BuildContext context) {
+    int pageIndex = 0;
     return Scaffold(
         // backgroundColor: Colors.deepPurple.shade100,
         bottomNavigationBar: CurvedNavigationBar(
@@ -23,22 +35,30 @@ class Home extends StatelessWidget {
             color: Color.fromARGB(255, 218, 149, 173),
             animationDuration: Duration(milliseconds: 300),
             items: [
-              Icon(
-                Icons.home,
-                color: Colors.white,
-              ),
-              Icon(
-                Icons.sms,
-                color: Colors.white,
-              ),
-              Icon(
-                Icons.shopping_cart_checkout,
-                color: Colors.white,
-              ),
-              Icon(
-                Icons.home,
-                color: Colors.white,
-              ),
+              IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.home,
+                    color: Colors.white,
+                  )),
+              IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.category_sharp,
+                    color: Colors.white,
+                  )),
+              IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.shopping_cart_checkout,
+                    color: Colors.white,
+                  )),
+              IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.person,
+                    color: Colors.white,
+                  )),
             ]),
         appBar: AppBar(
           leading: Icon(
