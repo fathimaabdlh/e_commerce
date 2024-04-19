@@ -2,8 +2,6 @@
 // import 'package:main_project_/View/HomePages/OTP%20Screen/otpVerification.dart';
 // // import 'package:main_project_/View/Log%20in%20pages/OTP%20Sreen/otpVerification.dart';
 
-
-
 // class Register extends StatefulWidget {
 //   const Register({ Key? key}) : super(key: key);
 
@@ -39,14 +37,14 @@
 //               Container(
 //                 width: 200,
 //                 height: 200,
-                
+
 //                 decoration: BoxDecoration(
 //                   color: Colors.deepPurple.shade50,
 //                   // shape: BoxShape.circle,
 //                   borderRadius: BorderRadius.circular(18),
 //                   image: DecorationImage(image: AssetImage('Assets/Images/images15.webp'),fit: BoxFit.fill)
 //                 ),
-               
+
 //               ),
 //               SizedBox(
 //                 height: 24,

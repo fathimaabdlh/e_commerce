@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:main_project_/View/HomePages/Signup%20Pages/textStyle.dart';
 
-
 class Mainbutton extends StatelessWidget {
   final Function() onTap;
   final String text;

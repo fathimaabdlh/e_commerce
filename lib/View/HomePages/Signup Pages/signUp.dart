@@ -1,7 +1,10 @@
+// ignore_for_file: unused_import
+
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:main_project_/CommonWidget/ip.dart';
+import 'package:main_project_/Service/homeData.dart';
 import 'package:main_project_/View/HomePages/LoginPages/LogIn.dart';
 import 'package:main_project_/View/HomePages/OTP%20Screen/otpVerification.dart';
 import 'package:main_project_/View/HomePages/OTP%20Screen/register.dart';
@@ -52,7 +55,7 @@ class _SignUpPageState extends State<SignUpPage> {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           await prefs.setString('userid', userid);
           log('${prefs}');
-
+          DataProvider();
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => Otp(otpg: userid)),
@@ -74,8 +77,7 @@ class _SignUpPageState extends State<SignUpPage> {
           builder: (BuildContext context) {
             return AlertDialog(
               title: Text('Error'),
-              content:
-                  Text('Failed with status code: ${response.statusCode}'),
+              content: Text('Failed with status code: ${response.statusCode}'),
             );
           },
         );
@@ -149,10 +151,9 @@ class _SignUpPageState extends State<SignUpPage> {
                         border: InputBorder.none,
                         hintText: "Enter your Email",
                       ),
-                      validator: (input) =>
-                          !input!.contains('@gmail.com')
-                              ? 'Please enter a valid email'
-                              : null,
+                      validator: (input) => !input!.contains('@gmail.com')
+                          ? 'Please enter a valid email'
+                          : null,
                     ),
                   ),
                 ),
@@ -201,7 +202,6 @@ class _SignUpPageState extends State<SignUpPage> {
                         border: InputBorder.none,
                         hintText: "Enter your Password",
                       ),
-                       
                       validator: (input) => input!.length < 6
                           ? 'Must be at least 6 characters'
                           : null,
@@ -214,8 +214,8 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (contex) => Otp()));
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (contex) => Otp()));
                   },
                   child: Text(
                     "forgot password?",
@@ -289,27 +289,6 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import 'dart:convert';
 // import 'package:flutter/material.dart';

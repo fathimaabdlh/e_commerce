@@ -30,14 +30,13 @@ Widget textFild({
         Container(
           width: 70.0.w,
           child: TextFormField(
-            validator: 
-            // (value) {
-            //   if(value ==null || value.isEmpty){
-            //     'please enter password';
-            //   }
-            // }
-            validator
-            ,
+            validator:
+                // (value) {
+                //   if(value ==null || value.isEmpty){
+                //     'please enter password';
+                //   }
+                // }
+                validator,
             textAlignVertical: TextAlignVertical.center,
             obscureText: isObs,
             keyboardType: keyBordType,

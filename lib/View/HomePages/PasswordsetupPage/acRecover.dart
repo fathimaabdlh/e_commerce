@@ -109,8 +109,8 @@ class _RecoveryPageState extends State<RecoveryPage> {
                           style: ButtonStyle(
                             foregroundColor:
                                 MaterialStateProperty.all<Color>(Colors.white),
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(const Color.fromARGB(255, 247, 187, 208)),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                const Color.fromARGB(255, 247, 187, 208)),
                             shape: MaterialStateProperty.all<
                                 RoundedRectangleBorder>(
                               RoundedRectangleBorder(

@@ -4,9 +4,8 @@ import 'package:sizer/sizer.dart';
 
 class ChangePassword extends StatelessWidget {
   ChangePassword({super.key});
-   final TextEditingController newEmailController = TextEditingController();
-   final TextEditingController newPasswordController = TextEditingController();
-
+  final TextEditingController newEmailController = TextEditingController();
+  final TextEditingController newPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -37,36 +36,38 @@ class ChangePassword extends StatelessWidget {
           SizedBox(
             height: 39,
           ),
-           MyTextField(
+          MyTextField(
               controller: newEmailController,
               hintText: 'Enter your mail',
               obscureText: true),
-              SizedBox(height: 30,),
-               MyTextField(
+          SizedBox(
+            height: 30,
+          ),
+          MyTextField(
               controller: newPasswordController,
               hintText: 'Confirm Password',
               obscureText: false),
-              SizedBox(height: 100,),
+          SizedBox(
+            height: 100,
+          ),
 
-              Container(
-              height: 10.h,
-              width: 60.w,
-              decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 247, 187, 208),
-                  borderRadius: BorderRadius.all(Radius.circular(15))),
-              child: Center(
-                child: Text(
-                  'Confirm',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
+          Container(
+            height: 10.h,
+            width: 60.w,
+            decoration: BoxDecoration(
+                color: Color.fromARGB(255, 247, 187, 208),
+                borderRadius: BorderRadius.all(Radius.circular(15))),
+            child: Center(
+              child: Text(
+                'Confirm',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-
-        
+          ),
 
           //    TextField(
           // obscureText: true,

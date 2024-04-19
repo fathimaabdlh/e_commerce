@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -7,7 +6,7 @@ class RowContainer extends StatelessWidget {
   RowContainer({Key? key, required this.cakeName, required this.isSelected})
       : super(key: key);
   final String cakeName;
-   bool  isSelected =true;
+  bool isSelected = true;
   @override
   Widget build(BuildContext context) {
     return Column(

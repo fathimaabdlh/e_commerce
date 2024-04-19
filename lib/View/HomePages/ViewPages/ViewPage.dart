@@ -5,8 +5,9 @@ import 'package:main_project_/CommonWidget/rowCont.dart';
 import 'package:sizer/sizer.dart';
 
 class ViewPage extends StatelessWidget {
-  const ViewPage({Key? key});
-
+  ViewPage({Key? key});
+  final TextEditingController _searchController =
+      TextEditingController(text: 'What are you looking for?');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,23 +56,33 @@ class ViewPage extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Container(
-              height: 50.h,
-                  width: double.infinity,
-              child: GridView.count(
-                scrollDirection: Axis.vertical,
-                crossAxisCount: 2,
-              children: [
-            //    Container(
-            //   height: 40.h, // Set an appropriate height here
-            //   child: FoodContainer2(),
-            // ),
-              ],
-              
-              
-              
+              height: 4.h,
+              width: 87.w,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+                border: Border.all(color: Colors.pink),
               ),
-            )
-            
+              child: CupertinoSearchTextField(
+                controller: _searchController,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: FoodContainer2(),
+            ),
+            // Container(
+            //   height: 50.h,
+            //       width: double.infinity,
+            //   child: GridView.count(
+            //     scrollDirection: Axis.vertical,
+            //     crossAxisCount: 2,
+            //   children: [
+
+            //   ],
+
+            //   ),
+            // )
           ],
         ),
       ),

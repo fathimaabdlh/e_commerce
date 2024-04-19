@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:main_project_/CommonWidget/colors.dart';
 
-
 const TextStyle headline = TextStyle(
   fontSize: 28,
   color: whiteText,

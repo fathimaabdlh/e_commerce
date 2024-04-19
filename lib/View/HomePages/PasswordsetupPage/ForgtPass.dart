@@ -3,8 +3,7 @@ import 'package:main_project_/View/HomePages/PasswordsetupPage/acRecover.dart';
 import 'package:sizer/sizer.dart';
 
 class PasswordPage extends StatelessWidget {
-   PasswordPage({super.key});
-
+  PasswordPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +33,10 @@ class PasswordPage extends StatelessWidget {
           SizedBox(
             height: 30,
           ),
-            // MyTextField(
-            //   controller: newPasswordController,
-            //   hintText: 'Enter your mail',
-            //   obscureText: true),
+          // MyTextField(
+          //   controller: newPasswordController,
+          //   hintText: 'Enter your mail',
+          //   obscureText: true),
 
           // TextField(
           //   obscureText: true,

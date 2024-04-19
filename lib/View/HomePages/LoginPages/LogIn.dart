@@ -1,9 +1,12 @@
-// ignore_for_file: unused_import
+// ignore_for_file: unused_import, unnecessary_string_interpolations
+import 'dart:developer';
 
+import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:main_project_/Service/homeData.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:main_project_/CommonWidget/ip.dart';
 import 'package:main_project_/View/HomePages/PasswordsetupPage/ForgtPass.dart';
@@ -28,24 +31,12 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    checkLoginStatus();
-  }
-
-  Future<void> checkLoginStatus() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString('token');
-
-    if (token != null) {
-      // Navigate to home page if token exists
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => Home()),
-      );
-    }
+    login(emailController.text, passwordController.text);
   }
 
   Future<void> login(String email, String password) async {
     try {
+      print("tyu");
       var response = await post(
         Uri.parse("http://${ip}:3000/flutter/fuser_signin"),
         headers: {"Content-Type": "application/x-www-form-urlencoded"},
@@ -55,18 +46,31 @@ class _LoginPageState extends State<LoginPage> {
         },
       );
 
+      // log(response.toString());
+      print("Waiting...");
+
       if (response.statusCode == 200) {
+        DataProvider();
+
         var result = jsonDecode(response.body);
         String? token = result['token'];
-
+        print(response.body);
+        print(response.statusCode);
+        log('$token');
         if (token != null) {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           await prefs.setString('token', token);
+          await prefs.setBool('userlogin', true);
+
           // Navigate to homepage if token exists
-          Navigator.pushReplacement(
+          Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => Home()),
           );
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.red,
+            content: Text('Succssfully'),
+          ));
         } else {
           // Display error message if token is not received
           print('Token not received.');
@@ -74,6 +78,13 @@ class _LoginPageState extends State<LoginPage> {
       } else {
         // Display error message for non-200 status code
         print('Request failed with status: ${response.statusCode}.');
+
+        print('Request failed with status: ${response.body}.');
+
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.red,
+          content: Text('Invalid'),
+        ));
       }
     } catch (e) {
       print(e.toString());
@@ -126,7 +137,8 @@ class _LoginPageState extends State<LoginPage> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => PasswordPage()),
+                            MaterialPageRoute(
+                                builder: (context) => PasswordPage()),
                           );
                         },
                         child: Text(
@@ -140,7 +152,8 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 25),
                 MyButton(
                   onTap: () {
-                    login(emailController.text.toString(), passwordController.text.toString());
+                    login(emailController.text.toString(),
+                        passwordController.text.toString());
                   },
                 ),
                 const SizedBox(height: 50),

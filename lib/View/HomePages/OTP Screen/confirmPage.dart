@@ -50,7 +50,7 @@ class ConfirmPage extends StatelessWidget {
                     'Next',
                     style: TextStyle(
                         //  fontWeight: FontWeight.bold,
-                  
+
                         fontSize: 30),
                   ),
                 ),

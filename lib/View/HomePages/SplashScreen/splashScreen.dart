@@ -6,7 +6,6 @@ import 'package:main_project_/View/HomePages/SplashScreen/splashThree.dart';
 import 'package:main_project_/View/HomePages/SplashScreen/splashTwo.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-
 class SplashScreen extends StatelessWidget {
   final _controller = PageController();
 
@@ -17,12 +16,11 @@ class SplashScreen extends StatelessWidget {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Stack(
-        
           children: [
             // page view
             SizedBox(
-             height: MediaQuery.sizeOf(context).height,
-             width: MediaQuery.sizeOf(context).width,
+              height: MediaQuery.sizeOf(context).height,
+              width: MediaQuery.sizeOf(context).width,
               child: PageView(
                 controller: _controller,
                 children: const [
@@ -33,7 +31,7 @@ class SplashScreen extends StatelessWidget {
                 ],
               ),
             ),
-                //  SizedBox(height: 50,),
+            //  SizedBox(height: 50,),
             // dot indicators
             Positioned(
               top: 800,
