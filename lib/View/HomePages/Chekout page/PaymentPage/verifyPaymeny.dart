@@ -1,7 +1,5 @@
-
 import 'package:flutter/material.dart';
-import 'package:main_project_/Service/OrderService/invoice.dart';
-import 'package:main_project_/Service/OrderService/orderService.dart';
+import 'package:main_project_/Service/OrderHistoryService/historyInvoice.dart';
 import 'package:main_project_/Service/PlaceOrder/orderProvider.dart';
 import 'package:main_project_/View/HomePages/home.dart';
 import 'package:provider/provider.dart';
@@ -61,7 +59,7 @@ class VerifyPayment extends StatelessWidget {
                   }));
                 },
                 child: Container(
-                   height: 7.h,
+                    height: 7.h,
                     width: 38.w,
                     decoration: BoxDecoration(
                       color: Colors.blue,
@@ -81,16 +79,14 @@ class VerifyPayment extends StatelessWidget {
                 onTap: () {
                   // downloadFile();
                   // Fetch orderId from OrderCreationProvider
-                  var orderId = Provider.of<OrderCreationProvider>(context, listen: false).orderCreation?.order?.id;
+                  var orderId =
+                      Provider.of<OrderCreationProvider>(context, listen: false)
+                          .orderCreation
+                          ?.order
+                          ?.id;
                   if (orderId != null) {
-                    // If orderId is not null, call invoiceData
-                    // Provider.of<InvoiceApi>(context, listen: false).invoiceData(orderId);
-
-
-                                        Provider.of<InvoiceApi>(context, listen: false).addOrderID(orderId);
-
-                                        // Provider.of<InvoiceApi>(context, listen: false).downloadFile(orderId, bodyBytes);
-
+                    Provider.of<InvoiceApi>(context, listen: false)
+                        .addOrderID(orderId);
                   } else {
                     // If orderId is null, show a message or handle the error
                     print('Error: Order ID is null');
@@ -119,5 +115,4 @@ class VerifyPayment extends StatelessWidget {
       ),
     );
   }
-
 }

@@ -1,7 +1,5 @@
-// ignore_for_file: use_key_in_widget_constructors, sized_box_for_whitespace, unused_import
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:main_project_/Service/OrderService/orderService.dart';
 import 'package:main_project_/Service/Payment%20Service/paymentService.dart';
 import 'package:main_project_/Service/PlaceOrder/orderProvider.dart';
 import 'package:main_project_/View/HomePages/Chekout%20page/PaymentPage/verifyPaymeny.dart';
@@ -70,12 +68,12 @@ class _PaymentPageState extends State<PaymentPage> {
                       child: Column(
                         children: [
                           SizedBox(height: 20.h,),
-                          Container(
-                            height: 50.h,
-                            width: 98.w,
-                            // color: Colors.blue,
-                            child:Image.asset('assets/istockphoto-1224156546-612x612.jpg', fit: BoxFit.cover,) 
-                          ),
+                          // Container(
+                          //   height: 50.h,
+                          //   width: 98.w,
+                          //   // color: Colors.blue,
+                          //   child:Image.asset('assets/istockphoto-1224156546-612x612.jpg', fit: BoxFit.cover,) 
+                          // ),
                       
                           Text('Ready to Pay ', style: TextStyle(
                             fontSize: 20,
