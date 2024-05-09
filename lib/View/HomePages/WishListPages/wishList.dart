@@ -1,85 +1,89 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: use_key_in_widget_constructors
 
-class WishList extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:main_project_/CommonWidget/ip.dart';
+import 'package:main_project_/Model/Wishlist/Wishlist%20Add/addService.dart';
+import 'package:main_project_/Model/Wishlist/wish_list/wish_list.dart';
+import 'package:main_project_/Model/a_sdfgh/fasion.dart';
+import 'package:main_project_/Service/WishlistService/wishlistProvider.dart';
+import 'package:main_project_/wishlistProvider/viewWishlistProvider.dart';
+import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
+
+class FavoritePage extends StatefulWidget {
+  @override
+  State<FavoritePage> createState() => _FavoritePageState();
+}
+
+class _FavoritePageState extends State<FavoritePage> {
+  @override
+  void initState() {
+    Provider.of<ViewWishListProvider>(context, listen: false).getAllPosts();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Wishlist'),
-      ),
-      body: ListView(
-        children: [
-          ProductItem(
-            name: 'IPhone',
-            rating: 3.0,
-            image: 'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
-            price: 200,
-          ),
-          ProductItem(
-            name: 'IPhone X 2',
-            rating: 3.0,
-            image: 'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
-            price: 400,
-          ),
-          // Add more ProductItem widgets for other products
-        ],
-      ),
-    );
+        appBar: AppBar(
+          title: Text('Wishlist'),
+        ),
+        body: Consumer<ViewWishListProvider>(
+            builder: (BuildContext context, fathima, Widget? child) {
+          // ignore: unnecessary_null_comparison
+          if (fathima.isloading || fathima.service == null) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            var product = fathima.wishList.wishlist;
+            return GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 3,
+                crossAxisSpacing: 2,
+              ),
+              itemCount: product!.length,
+              itemBuilder: (context, index) {
+                // FavoriteItemm item = favoriteItems[index];
+                var add = product[index].product;
+
+                return Container(
+                  height: 15.h,
+                  width: 8.w,
+                  color: Colors.blue,
+                  child: Stack(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Colors.blueGrey,
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    'http://$ip:3000/products-images/${add!.image}'),
+                                fit: BoxFit.cover)),
+                        // child: Image.network(
+                        //   'assets/1600w-1h_Fj-14AQs.webp',
+                        //   fit: BoxFit.cover,
+                        // ),
+                      ),
+                      Positioned(
+                          right: 3,
+                          child: Consumer<WishAddDataService>(
+                            builder: (BuildContext context,
+                                WishAddDataService value, Widget? child) {
+                              return IconButton(
+                                  onPressed: () {
+                                    value.addData(add.id);
+                                  },
+                                  icon: Icon(Icons.favorite));
+                            },
+                          ))
+                    ],
+                  ),
+                );
+              },
+            );
+          }
+        }));
   }
-}
-
-class ProductItem extends StatelessWidget {
-  final String name;
-  final double rating;
-  final String image;
-  final double price;
-
-  const ProductItem({
-    required this.name,
-    required this.rating,
-    required this.image,
-    required this.price,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.all(8),
-      child: ListTile(
-        leading: Image.network(
-          image,
-          width: 100,
-          height: 100,
-          fit: BoxFit.cover,
-        ),
-        title: Text(name),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('\$$price', style: TextStyle(fontWeight: FontWeight.bold)),
-            Row(
-              children: [
-                Icon(Icons.star, color: Colors.amber, size: 16),
-                SizedBox(width: 4),
-                Text(rating.toString()),
-              ],
-            ),
-          ],
-        ),
-        trailing: IconButton(
-          icon: Icon(Icons.delete),
-          onPressed: () {
-            // Remove the product from the wishlist
-            // Implement your logic here
-          },
-        ),
-      ),
-    );
-  }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: WishList(),
-  ));
 }

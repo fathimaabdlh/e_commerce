@@ -1,12 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:main_project_/CommonWidget/ip.dart';
+import 'package:main_project_/Model/Wishlist/Wishlist%20Add/addService.dart';
 import 'package:main_project_/Model/a_sdfgh/electronic.dart';
+import 'package:main_project_/Model/cart/addCart/addDataCart.dart';
 import 'package:main_project_/Service/homeData.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-class FoodContainer3 extends StatelessWidget {
+class FoodContainer3 extends StatefulWidget {
   const FoodContainer3({Key? key});
+
+  @override
+  State<FoodContainer3> createState() => _FoodContainer3State();
+}
+
+class _FoodContainer3State extends State<FoodContainer3> {
+  @override
+  void initState() {
+    Provider.of<WishAddDataService>(context, listen: false);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,16 +76,22 @@ class FoodContainer3 extends StatelessWidget {
                                 Positioned(
                                   right: 6.w,
                                   // bottom: 10.h,
-                                  child: IconButton(
-                                    onPressed: () {
-                                      // Add your favorite button functionality here
-                                      print("favorite button");
+                                  child: Consumer<WishAddDataService>(
+                                    builder: (BuildContext context, value,
+                                        Widget? child) {
+                                      return IconButton(
+                                        onPressed: () {
+                                          value.addData(Electronic.id);
+                                          // Add your favorite button functionality here
+                                          print("favorite button");
+                                        },
+                                        icon: Icon(
+                                          Icons.favorite_border_rounded,
+                                          color: Colors.red,
+                                          size: 19.sp,
+                                        ),
+                                      );
                                     },
-                                    icon: Icon(
-                                      Icons.favorite_border_rounded,
-                                      color: Colors.red,
-                                      size: 19.sp,
-                                    ),
                                   ),
                                 ),
                                 Positioned(
@@ -123,16 +142,22 @@ class FoodContainer3 extends StatelessWidget {
                                 Positioned(
                                   right: 5.w,
                                   bottom: 0.1.h,
-                                  child: IconButton(
-                                      onPressed: () {
-                                        // ignore: avoid_print
-                                        print("control button");
-                                      },
-                                      icon: Icon(
-                                        Icons.control_point_rounded,
-                                        size: 22.sp,
-                                        color: Colors.pink,
-                                      )),
+                                  child: Consumer<AddCartData>(
+                                    builder: (BuildContext context, value,
+                                        Widget? child) {
+                                      return IconButton(
+                                          onPressed: () {
+                                            value.add(Electronic.id);
+                                            // ignore: avoid_print
+                                            print("control button");
+                                          },
+                                          icon: Icon(
+                                            Icons.control_point_rounded,
+                                            size: 22.sp,
+                                            color: Colors.pink,
+                                          ));
+                                    },
+                                  ),
                                 ),
                                 Positioned(
                                   bottom: 0.h,

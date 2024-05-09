@@ -7,6 +7,7 @@ import 'package:main_project_/Model/cart/addCart/deletaData.dart';
 import 'package:main_project_/Model/cart/cartData.dart';
 import 'package:main_project_/Model/cart/qty/qtyAddService.dart';
 import 'package:main_project_/Model/cart/qty/qtyDltService.dart';
+import 'package:main_project_/View/HomePages/Chekout%20page/checkOut.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -128,14 +129,16 @@ class _CartPageState extends State<CartPage> {
             );
           }
 
-          return ListView.builder(
-            shrinkWrap: true,
-            itemCount: item.items!.length,
-            itemBuilder: (context, index) {
-              var product = item.items![index].product!;
-              return SingleChildScrollView(
-                child: Column(
-                  children: [
+          return Column(children: [
+            SizedBox(
+              height: 74.h,
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: item.items!.length,
+                itemBuilder: (context, index) {
+                  var product = item.items![index].product!;
+                  return SingleChildScrollView(
+                      child: Column(children: [
                     Stack(
                       children: [
                         Container(
@@ -286,21 +289,77 @@ class _CartPageState extends State<CartPage> {
                             ],
                           ),
                         ),
+                        // total amount + pay now
+
+                        Padding(
+                          padding: EdgeInsets.only(top: 1.h),
+                          child: Divider(
+                            endIndent: 5.w,
+                            indent: 5.w,
+                            color: Color.fromARGB(255, 196, 187, 187),
+                          ),
+                        ),
                       ],
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 1.h),
-                      child: Divider(
-                        endIndent: 5.w,
-                        indent: 5.w,
-                        color: Color.fromARGB(255, 196, 187, 187),
+                    )
+                  ]));
+                },
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: Colors.green,
+              ),
+              padding: const EdgeInsets.all(24),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Delivery Charge: 40',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'Total price ${value.cartModel.total}',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  ),
+
+                  // pay now
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Checkout()));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.green.shade200),
+                        borderRadius: BorderRadius.circular(28),
+                      ),
+                      padding: const EdgeInsets.all(12),
+                      child: Row(
+                        children: const [
+                          Text(
+                            'Pay Now',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            size: 16,
+                            color: Colors.white,
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              );
-            },
-          );
+                  ),
+                ],
+              ),
+            ),
+          ]);
         },
       ),
     );

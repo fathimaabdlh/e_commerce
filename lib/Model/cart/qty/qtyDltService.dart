@@ -9,13 +9,12 @@ import 'package:main_project_/Model/cart/cartService.dart';
 import 'package:main_project_/Model/cart/qty/qtyAdd.dart';
 import 'package:main_project_/Model/cart/qty/qtyDlt.dart';
 
-class  DeleteDataService extends ChangeNotifier {
+class DeleteDataService extends ChangeNotifier {
   final serviceDelete = DeleteDataCart();
   // bool isloading = false;
   // CartGet _cartModel = CartGet();
   // CartGet get cartModel => _cartModel;
   deleteData(id) async {
-    
     // isloading = true;
     notifyListeners();
     await serviceDelete.DeleteData(id);

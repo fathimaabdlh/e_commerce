@@ -2,13 +2,26 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:main_project_/CommonWidget/ip.dart';
+import 'package:main_project_/Model/Wishlist/Wishlist%20Add/addService.dart';
 import 'package:main_project_/Model/cart/addCart/addDataCart.dart';
 import 'package:main_project_/Service/homeData.dart';
+import 'package:main_project_/wishlistProvider/viewWishlistProvider.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-class DressContainer extends StatelessWidget {
+class DressContainer extends StatefulWidget {
   const DressContainer({Key? key});
+
+  @override
+  State<DressContainer> createState() => _DressContainerState();
+}
+
+class _DressContainerState extends State<DressContainer> {
+  @override
+  void initState() {
+    Provider.of<WishAddDataService>(context, listen: false);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,16 +79,22 @@ class DressContainer extends StatelessWidget {
                                 Positioned(
                                   right: 6.w,
                                   // bottom: 10.h,
-                                  child: IconButton(
-                                    onPressed: () {
-                                      // Add your favorite button functionality here
-                                      print("favorite button");
+                                  child: Consumer<WishAddDataService>(
+                                    builder: (BuildContext context, value,
+                                        Widget? child) {
+                                      return IconButton(
+                                        onPressed: () {
+                                          value.addData(fasion.id);
+                                          // Add your favorite button functionality here
+                                          print("favorite button");
+                                        },
+                                        icon: Icon(
+                                          Icons.favorite_border_rounded,
+                                          color: Colors.red,
+                                          size: 19.sp,
+                                        ),
+                                      );
                                     },
-                                    icon: Icon(
-                                      Icons.favorite_border_rounded,
-                                      color: Colors.red,
-                                      size: 19.sp,
-                                    ),
                                   ),
                                 ),
                                 Positioned(

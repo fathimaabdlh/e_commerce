@@ -1,5 +1,3 @@
-
-
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -18,16 +16,11 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-
   @override
-
- void initState() {
-  super.initState();
+  void initState() {
+    super.initState();
     Provider.of<ProfileProvider>(context, listen: false).getAllPosts();
-
-}
-
-
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,53 +42,52 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
         body: SingleChildScrollView(
-            child: Column(
-              children: [
-
-                  Stack(
-                    children: [
-                      Center(
-                        child: CircleAvatar(
-                          radius: 55.sp,
-                          backgroundImage: AssetImage(
-                            'Assets/Images/kid2.jpg',
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        right: 120,
-                        bottom: 10,
-                        child: Container(
-                      width: 35,
-                      height: 35,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        color: Colors.white,
-                      ),
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.edit),
-                      ),
-                    ),)
-                    ],
+            child: Column(children: [
+          Stack(
+            children: [
+              Center(
+                child: CircleAvatar(
+                  radius: 55.sp,
+                  backgroundImage: AssetImage(
+                    'Assets/Images/kid2.jpg',
                   ),
-              SizedBox(height: 20,),   
-          Consumer<ProfileProvider>(
-            builder: (BuildContext context, ProfileProvider value, Widget? child) { 
-              log(            '+++++++++++++++++++++++++++++${  value.data.data!.name}'
-);
-              return Text(value.data.data!.name.toString());
-   } ),
-              
-
-                  Positioned(
-                      right: 40,
-                      top: 80,
-                      child: Consumer<ProfileProvider>( builder: (BuildContext context, value, Widget? child) {
-              return Text(value.data.data!.phoneno.toString());
-                          },),),
-
-                
+                ),
+              ),
+              Positioned(
+                right: 120,
+                bottom: 10,
+                child: Container(
+                  width: 35,
+                  height: 35,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    color: Colors.white,
+                  ),
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.edit),
+                  ),
+                ),
+              )
+            ],
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Consumer<ProfileProvider>(builder:
+              (BuildContext context, ProfileProvider value, Widget? child) {
+            log('+++++++++++++++++++++++++++++${value.data.data!.name}');
+            return Text(value.data.data!.name.toString());
+          }),
+          Positioned(
+            right: 40,
+            top: 80,
+            child: Consumer<ProfileProvider>(
+              builder: (BuildContext context, value, Widget? child) {
+                return Text(value.data.data!.phoneno.toString());
+              },
+            ),
+          ),
           const SizedBox(height: 20),
           Column(
             children: [

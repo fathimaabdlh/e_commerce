@@ -13,5 +13,5 @@ class BannerModel {
 
   Map<String, dynamic> toJson() => {
         if (banner != null) 'banner': banner?.map((e) => e.toJson()).toList(),
-};
+      };
 }

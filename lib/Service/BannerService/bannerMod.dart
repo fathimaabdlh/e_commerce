@@ -29,7 +29,7 @@ class BannerGetData extends ChangeNotifier {
       );
 
       log('Response Status Code: ${response.statusCode}');
-log('ansiiiiiiiiiiiiiiiiiiiiiiiiii');
+      log('ansiiiiiiiiiiiiiiiiiiiiiiiiii');
 
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
@@ -46,4 +46,3 @@ log('ansiiiiiiiiiiiiiiiiiiiiiiiiii');
     }
   }
 }
-

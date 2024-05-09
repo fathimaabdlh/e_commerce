@@ -10,6 +10,8 @@ import 'package:main_project_/CommonWidget/foodContainer.dart';
 import 'package:main_project_/CommonWidget/foodContainer3.dart';
 import 'package:main_project_/CommonWidget/foodContainer4.dart';
 import 'package:main_project_/CommonWidget/ip.dart';
+import 'package:main_project_/Model/Wishlist/wish_list/wish_list.dart';
+import 'package:main_project_/Service/OrderService/orderService.dart';
 import 'package:main_project_/Service/provider_service.dart';
 import 'package:main_project_/View/HomePages/Catagories/catagoryPage.dart';
 import 'package:main_project_/View/HomePages/LoginPages/LogIn.dart';
@@ -25,7 +27,7 @@ import 'package:http/http.dart' as http;
 import '../../Service/homeData.dart';
 
 class Home extends StatefulWidget {
-  Home({super.key});
+  const Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();
@@ -39,11 +41,13 @@ class _HomeState extends State<Home> {
     () => Home()
   ];
 
+
   @override
   void initState() {
-    // TODO: implement initState
+
     super.initState();
     Provider.of<DataProvider>(context, listen: false).fetchData();
+    // Provider.of<OrderCreationProvider>(context, listen: false);
   }
 
   final TextEditingController _searchController =
@@ -187,10 +191,14 @@ class _HomeState extends State<Home> {
                 catagories('Assets/Images/gif-removebg-preview.png'),
                 catagories('Assets/Images/cam-removebg-preview.png'),
                 InkWell(
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>WishList()));
-                  },
-                  child: catagories('Assets/Images/kid2-removebg-preview.png')),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FavoritePage()));
+                    },
+                    child:
+                        catagories('Assets/Images/kid2-removebg-preview.png')),
                 catagories('Assets/Images/wed-removebg-preview.png'),
               ],
             ),

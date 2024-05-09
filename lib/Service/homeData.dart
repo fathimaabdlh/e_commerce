@@ -23,15 +23,15 @@ class DataProvider with ChangeNotifier {
   bool get isLoading => _isLoading;
 
   // Function to fetch data from API
-  
+
   Future<void> fetchData() async {
     try {
-       log('catagory ________________________');
+      log('catagory ________________________');
       SharedPreferences pref = await SharedPreferences.getInstance();
       final token = await pref.getString('token');
       log('${token}');
       // Make the API call to fetch data
-     
+
       final response = await http.get(
         Uri.parse('http://$ip:3000/flutter/fhome'),
         headers: <String, String>{

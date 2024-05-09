@@ -7,7 +7,7 @@ import 'package:main_project_/Model/cart/addCart/cartService.dart';
 import 'package:main_project_/Model/cart/addCart/deletaData.dart';
 import 'package:main_project_/Model/cart/cartService.dart';
 
-class  DeleteCartData extends ChangeNotifier {
+class DeleteCartData extends ChangeNotifier {
   final service = DeleteCartService();
   // bool isloading = false;
   // CartGet _cartModel = CartGet();

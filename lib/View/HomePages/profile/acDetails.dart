@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_print, unnecessary_brace_in_string_interps, await_only_futures
 
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:main_project_/CommonWidget/ip.dart';

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:main_project_/CommonWidget/ip.dart';
+import 'package:main_project_/Model/Wishlist/Wishlist%20Add/addService.dart';
 import 'package:main_project_/Model/a_sdfgh/jwellery.dart';
+import 'package:main_project_/Model/cart/addCart/addDataCart.dart';
 import 'package:main_project_/Service/homeData.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -55,7 +57,7 @@ class FoodContainer4 extends StatelessWidget {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(8.0),
                                     child: Image.network(
-                                      'http://$ip:3000/products-images/${Jwellery?.image??""}',
+                                      'http://$ip:3000/products-images/${Jwellery?.image ?? ""}',
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -63,16 +65,23 @@ class FoodContainer4 extends StatelessWidget {
                                 Positioned(
                                   right: 6.w,
                                   // bottom: 10.h,
-                                  child: IconButton(
-                                    onPressed: () {
-                                      // Add your favorite button functionality here
-                                      print("favorite button");
+                                  child: Consumer<WishAddDataService>(
+                                    builder: (BuildContext context,
+                                        WishAddDataService value,
+                                        Widget? child) {
+                                      return IconButton(
+                                        onPressed: () {
+                                          value.addData(Jwellery!.id);
+                                          // Add your favorite button functionality here
+                                          print("favorite button");
+                                        },
+                                        icon: Icon(
+                                          Icons.favorite_border_rounded,
+                                          color: Colors.red,
+                                          size: 19.sp,
+                                        ),
+                                      );
                                     },
-                                    icon: Icon(
-                                      Icons.favorite_border_rounded,
-                                      color: Colors.red,
-                                      size: 19.sp,
-                                    ),
                                   ),
                                 ),
                                 Positioned(
@@ -123,16 +132,22 @@ class FoodContainer4 extends StatelessWidget {
                                 Positioned(
                                   right: 5.w,
                                   bottom: 0.1.h,
-                                  child: IconButton(
-                                      onPressed: () {
-                                        // ignore: avoid_print
-                                        print("control button");
-                                      },
-                                      icon: Icon(
-                                        Icons.control_point_rounded,
-                                        size: 22.sp,
-                                        color: Colors.pink,
-                                      )),
+                                  child: Consumer<AddCartData>(
+                                    builder: (BuildContext context, value,
+                                        Widget? child) {
+                                      return IconButton(
+                                          onPressed: () {
+                                            value.add(Jwellery!.id);
+                                            // ignore: avoid_print
+                                            print("control button");
+                                          },
+                                          icon: Icon(
+                                            Icons.control_point_rounded,
+                                            size: 22.sp,
+                                            color: Colors.pink,
+                                          ));
+                                    },
+                                  ),
                                 ),
                                 Positioned(
                                   bottom: 0.h,

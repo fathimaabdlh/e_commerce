@@ -9,29 +9,29 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AddDataCart {
   Future<void> AddData(dynamic addData) async {
- try{
-     SharedPreferences pref = await SharedPreferences.getInstance();
-    final token = await pref.getString('token');
-    final response = await http.get(
-      Uri.parse('http://${ip}:3000/flutter/cart/quantityadd/${addData}'),
-      headers: <String, String>{
-        'Authorization': 'Bearer $token',
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-    );
-    // log('${response.body}');
-    // log('${response.headers}');
-    if (response.statusCode == 200) {
-      log("wertyuiowwwwwwwwwwwwwwwwwwwwwwwwww");
-      log("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu${response.body}");
-      // log('successful');
+    try {
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      final token = await pref.getString('token');
+      final response = await http.get(
+        Uri.parse('http://${ip}:3000/flutter/cart/quantityadd/${addData}'),
+        headers: <String, String>{
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
       // log('${response.body}');
+      // log('${response.headers}');
+      if (response.statusCode == 200) {
+        log("wertyuiowwwwwwwwwwwwwwwwwwwwwwwwww");
+        log("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu${response.body}");
+        // log('successful');
+        // log('${response.body}');
 
-      // return CartGet.fromJson(json.decode(response.body));
+        // return CartGet.fromJson(json.decode(response.body));
+      }
+    } catch (e) {
+      log("erorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
     }
- }catch(e){
-  log("erorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
- }
     // return CartGet();
   }
 }

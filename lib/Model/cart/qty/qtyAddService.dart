@@ -8,13 +8,12 @@ import 'package:main_project_/Model/cart/addCart/deletaData.dart';
 import 'package:main_project_/Model/cart/cartService.dart';
 import 'package:main_project_/Model/cart/qty/qtyAdd.dart';
 
-class  AddDataService extends ChangeNotifier {
+class AddDataService extends ChangeNotifier {
   final serviceAdd = AddDataCart();
   // bool isloading = false;
   // CartGet _cartModel = CartGet();
   // CartGet get cartModel => _cartModel;
   addData(id) async {
-    
     // isloading = true;
     notifyListeners();
     await serviceAdd.AddData(id);
