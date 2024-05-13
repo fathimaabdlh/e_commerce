@@ -7,14 +7,14 @@ import 'package:main_project_/View/HomePages/TrackOrder/trackOrder.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-class MyOrder extends StatefulWidget {
-  const MyOrder({Key? key});
+class UserOrder extends StatefulWidget {
+  const UserOrder({Key? key});
 
   @override
-  State<MyOrder> createState() => _MyOrderState();
+  State<UserOrder> createState() => _UserOrderState();
 }
 
-class _MyOrderState extends State<MyOrder> {
+class _UserOrderState extends State<UserOrder> {
   @override
   void initState() {
     Provider.of<OrdersHistoryProvider>(context, listen: false).getAllPosts();
@@ -56,15 +56,7 @@ class _MyOrderState extends State<MyOrder> {
                         MaterialPageRoute(
                           builder: (context) => TrackOrder(
                             orderIndex: index,
-                            productImage: product.name.toString(),
-                            productName: product.name.toString(),
-                            productPrice: product.price.toString(),
-                            name: product.name.toString(),
-                            address: orders[0].address.toString(),
-                            shipped: orders[0].orderdate.toString(),
-                            orderID: orders[0]
-                                .orderId
-                                .toString(), // Pass the orderIndex here
+                            // Pass the orderIndex here
                           ),
                         ),
                       );

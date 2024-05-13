@@ -1,62 +1,50 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:main_project_/CommonWidget/ip.dart';
 import 'package:main_project_/Model/Wishlist/Wishlist%20Add/addService.dart';
+import 'package:main_project_/Model/a_sdfgh/jwellery.dart';
 import 'package:main_project_/Model/cart/addCart/addDataCart.dart';
 import 'package:main_project_/Service/homeData.dart';
-import 'package:main_project_/categories/fashionPage.dart';
-import 'package:main_project_/wishlistProvider/viewWishlistProvider.dart';
+import 'package:main_project_/categories/fancyPage.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-class DressContainer extends StatefulWidget {
-  const DressContainer({Key? key});
-
-  @override
-  State<DressContainer> createState() => _DressContainerState();
-}
-
-class _DressContainerState extends State<DressContainer> {
-  @override
-  void initState() {
-    Provider.of<WishAddDataService>(context, listen: false);
-    super.initState();
-  }
+class FoodContainer5 extends StatelessWidget {
+  const FoodContainer5({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return Consumer<DataProvider>(builder: (context, provider, child) {
       if (provider.isLoading || provider.homeData == null) {
-        log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         // If data is loading or not yet fetched, show loading indicator
         return Center(
           child: CircularProgressIndicator(),
         );
       } else {
-        log("_______________________________________________________________");
         return SizedBox(
             // Data is available, proceed with building the UI
             width: MediaQuery.of(context).size.width,
             height: 500,
             child: ListView.builder(
                 itemCount:
-                    provider.homeData?.categorizedProducts?.fasion?.length ?? 0,
+                    provider.homeData?.categorizedProducts?.fancy?.length ??
+                        0,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  final fasion =
-                      provider.homeData?.categorizedProducts?.fasion![index];
+                  final Fancy =
+                      provider.homeData?.categorizedProducts?.fancy![index];
 
                   return InkWell(
-                     onTap: () {
+                  
+                       onTap: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return FashionPage(
-                            productName: fasion.name.toString(),
-                            productImage: fasion.image.toString(),
-                            productPrice: fasion.price.toString(),
-                            productId: fasion.id.toString());
+                        return FancyPage(
+                            productName: Fancy!.name.toString(),
+                            productImage: Fancy.image.toString(),
+                            productPrice: Fancy.price.toString(),
+                            productId: Fancy.id.toString());
                       }));
+                    
                     },
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 5.0),
@@ -83,7 +71,7 @@ class _DressContainerState extends State<DressContainer> {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(8.0),
                                       child: Image.network(
-                                        'http://$ip:3000/products-images/${fasion!.image!}',
+                                        'http://$ip:3000/products-images/${Fancy?.image ?? ""}',
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -92,11 +80,12 @@ class _DressContainerState extends State<DressContainer> {
                                     right: 6.w,
                                     // bottom: 10.h,
                                     child: Consumer<WishAddDataService>(
-                                      builder: (BuildContext context, value,
+                                      builder: (BuildContext context,
+                                          WishAddDataService value,
                                           Widget? child) {
                                         return IconButton(
                                           onPressed: () {
-                                            value.addData(fasion.id);
+                                            value.addData(Fancy!.id);
                                             // Add your favorite button functionality here
                                             print("favorite button");
                                           },
@@ -127,7 +116,7 @@ class _DressContainerState extends State<DressContainer> {
                                     bottom: 75,
                                     left: 8,
                                     child: Text(
-                                      fasion.name ?? "",
+                                      Fancy?.name ?? "",
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -137,7 +126,7 @@ class _DressContainerState extends State<DressContainer> {
                                     bottom: 55,
                                     left: 8,
                                     child: Text(
-                                      '\$ ${fasion.price}',
+                                      '\$ ${Fancy?.price}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Color.fromARGB(255, 2, 2, 2)),
@@ -148,7 +137,7 @@ class _DressContainerState extends State<DressContainer> {
                                     bottom: 35,
                                     left: 8,
                                     child: Text(
-                                      fasion.description ?? "",
+                                      Fancy?.description ?? "",
                                       style: TextStyle(
                                         color: Color.fromARGB(255, 8, 8, 8),
                                       ),
@@ -162,9 +151,7 @@ class _DressContainerState extends State<DressContainer> {
                                           Widget? child) {
                                         return IconButton(
                                             onPressed: () {
-                                              value.add(fasion.id);
-                                              log("${value.add(fasion.id)}");
-                    
+                                              value.add(Fancy!.id);
                                               // ignore: avoid_print
                                               print("control button");
                                             },

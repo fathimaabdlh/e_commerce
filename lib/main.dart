@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, unused_import
 import 'package:flutter/material.dart';
+import 'package:main_project_/CommonWidget/theme.dart';
 import 'package:main_project_/Model/CartModel/cardId.dart';
 import 'package:main_project_/Model/Wishlist/Wishlist%20Add/addService.dart';
 import 'package:main_project_/Model/cart/addCart/addDataCart.dart';
@@ -10,8 +11,10 @@ import 'package:main_project_/Model/cart/qty/qtyDltService.dart';
 import 'package:main_project_/Model/checkout/checkout/checkOutModel.dart';
 import 'package:main_project_/Model/profileModel/prof_get/prof_get.dart';
 import 'package:main_project_/Service/BannerService/bannerMod.dart';
+import 'package:main_project_/Service/OrderHistoryService/orderHisProvider.dart';
 import 'package:main_project_/Service/PlaceOrder/orderProvider.dart';
 import 'package:main_project_/Service/ProfileServiceProvider/profData.dart';
+import 'package:main_project_/Service/Theme/themeProvider.dart';
 import 'package:main_project_/Service/homeData.dart';
 import 'package:main_project_/Service/provider_service.dart';
 import 'package:main_project_/View/HomePages/LoginPages/LogIn.dart';
@@ -60,13 +63,21 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => WishAddDataService()),
         ChangeNotifierProvider(create: (_) => CheckoutApi()),
         ChangeNotifierProvider(create: (_) => OrderCreationProvider()),
+        ChangeNotifierProvider(create: (_) => OrdersHistoryProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
       ],
       child: Sizer(builder: (context, orientation, deviceType) {
-        return MaterialApp(
-          theme: ThemeData(scaffoldBackgroundColor: Colors.white),
-          home: widget.userlogin ? Home() : LoginPage(),
+        return Consumer<ThemeProvider>(
+          builder: (BuildContext context, theme, Widget? child) {
+            return MaterialApp(
+              theme: theme.themeData,
+              // Provider.of<ThemeProvider>(context).themeData,
 
-          //  Home(),
+              home: widget.userlogin ? Home() : LoginPage(),
+
+              //  Home(),
+            );
+          },
         );
       }),
     );

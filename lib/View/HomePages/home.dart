@@ -1,25 +1,33 @@
 // import 'package:card_swiper/card_swiper.dart';
-// ignore_for_file: unused_import, must_be_immutable, unused_local_variable
+// ignore_for_file: unused_import, must_be_immutable, unused_local_variable, avoid_print
 
 import 'dart:convert';
 import 'dart:math';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:main_project_/CommonWidget/box.dart';
 import 'package:main_project_/CommonWidget/foodContainer.dart';
 import 'package:main_project_/CommonWidget/foodContainer3.dart';
 import 'package:main_project_/CommonWidget/foodContainer4.dart';
+import 'package:main_project_/CommonWidget/foodContainer5.dart';
 import 'package:main_project_/CommonWidget/ip.dart';
 import 'package:main_project_/Model/Wishlist/wish_list/wish_list.dart';
 import 'package:main_project_/Service/OrderService/orderService.dart';
+import 'package:main_project_/Service/Theme/themeProvider.dart';
 import 'package:main_project_/Service/provider_service.dart';
 import 'package:main_project_/View/HomePages/Catagories/catagoryPage.dart';
 import 'package:main_project_/View/HomePages/LoginPages/LogIn.dart';
+import 'package:main_project_/View/HomePages/OrderPages/orderPage.dart';
 import 'package:main_project_/View/HomePages/Pageview/smoothIndicatr.dart';
 import 'package:main_project_/View/HomePages/ViewPages/ViewPage.dart';
 import 'package:main_project_/View/HomePages/WishListPages/wishList.dart';
 import 'package:main_project_/View/HomePages/cart/cart.dart';
 import 'package:main_project_/View/HomePages/profile/profile.dart';
+import 'package:main_project_/categories/homeElectronics.dart';
+import 'package:main_project_/categories/homeFancy.dart';
+import 'package:main_project_/categories/homeFasion.dart';
+import 'package:main_project_/categories/homeJwellery.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:http/http.dart' as http;
@@ -41,10 +49,8 @@ class _HomeState extends State<Home> {
     () => Home()
   ];
 
-
   @override
   void initState() {
-
     super.initState();
     Provider.of<DataProvider>(context, listen: false).fetchData();
     // Provider.of<OrderCreationProvider>(context, listen: false);
@@ -78,7 +84,10 @@ class _HomeState extends State<Home> {
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => UserOrder()));
+              },
               icon: Icon(
                 Icons.category_sharp,
                 color: Colors.white,
@@ -109,8 +118,15 @@ class _HomeState extends State<Home> {
       ),
 
       appBar: AppBar(
-        leading: Icon(
-          Icons.favorite,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => FavoritePage()));
+          },
+          icon: Icon(
+            Icons.favorite,
+            color: Colors.red,
+          ),
           color: Colors.red,
         ),
         title: Center(
@@ -160,15 +176,19 @@ class _HomeState extends State<Home> {
                     controller: _searchController,
                   ),
                 ),
-                IconButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return LoginPage();
-                      }));
-                      print("shareButton");
-                    },
-                    icon: Icon(Icons.tune, color: Colors.pink)),
+                myBox(
+                  color: Theme.of(context).colorScheme.primary,
+                  child: IconButton(
+                      onPressed: () {
+                        Provider.of<ThemeProvider>(context, listen: false)
+                            .toggleThemr();
+                        print("shareButton");
+                      },
+                      icon: Icon(
+                        Icons.tune,
+                        color: Theme.of(context).colorScheme.secondary,
+                      )),
+                )
               ],
             ),
             SizedBox(
@@ -186,41 +206,32 @@ class _HomeState extends State<Home> {
               height: 1.h,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                catagories('Assets/Images/gif-removebg-preview.png'),
-                catagories('Assets/Images/cam-removebg-preview.png'),
-                InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => FavoritePage()));
-                    },
-                    child:
-                        catagories('Assets/Images/kid2-removebg-preview.png')),
-                catagories('Assets/Images/wed-removebg-preview.png'),
+                HomeElectronics(),
+                HomeFasion(),
+                HomeFancy(),
+                HomeJwellery()
               ],
             ),
             SizedBox(
               height: 1.h,
             ),
-            Padding(
-              padding: EdgeInsets.only(
-                left: 6.w,
-                top: 1.h,
-              ),
-              child: Row(
-                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  catagories('Assets/Images/cou-removebg-preview.png'),
-                  SizedBox(
-                    width: 5.w,
-                  ),
-                  catagories('Assets/Images/he-removebg-preview.png'),
-                ],
-              ),
-            ),
+            // Padding(
+            //   padding: EdgeInsets.only(
+            //     left: 6.w,
+            //     top: 1.h,
+            //   ),
+            //   child: Row(
+            //     // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //     children: [
+            //       catagories('Assets/Images/cou-removebg-preview.png'),
+            //       SizedBox(
+            //         width: 5.w,
+            //       ),
+            //       catagories('Assets/Images/he-removebg-preview.png'),
+            //     ],
+            //   ),
+            // ),
             SizedBox(
               height: 30,
             ),
@@ -304,6 +315,15 @@ class _HomeState extends State<Home> {
                 height: 30.h,
                 child: Row(
                   children: [FoodContainer4()],
+                ),
+              ),
+            ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Container(
+                height: 30.h,
+                child: Row(
+                  children: [FoodContainer5()],
                 ),
               ),
             ),

@@ -7,6 +7,7 @@ import 'package:main_project_/Model/cart/addCart/deletaData.dart';
 import 'package:main_project_/Model/cart/cartData.dart';
 import 'package:main_project_/Model/cart/qty/qtyAddService.dart';
 import 'package:main_project_/Model/cart/qty/qtyDltService.dart';
+import 'package:main_project_/Model/checkout/checkout/checkout.dart';
 import 'package:main_project_/View/HomePages/Chekout%20page/checkOut.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -333,7 +334,7 @@ class _CartPageState extends State<CartPage> {
                   InkWell(
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Checkout()));
+                          MaterialPageRoute(builder: (context) => ShippingAddress()));
                     },
                     child: Container(
                       decoration: BoxDecoration(

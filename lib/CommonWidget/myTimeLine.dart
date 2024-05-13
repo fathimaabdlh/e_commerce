@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:main_project_/CommonWidget/timeLine.dart';
 import 'package:sizer/sizer.dart';
-import 'package:timelines/timelines.dart';
+import 'package:timeline_tile/timeline_tile.dart';
 
 class MyTimeLine extends StatelessWidget {
   final bool isFirst;
@@ -39,7 +40,7 @@ class MyTimeLine extends StatelessWidget {
         endChild: EventCart(
           isPast: isPast,
           child: eventCart,
-        ), node: null,
+        ), 
       ),
     );
   }
